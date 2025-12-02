@@ -53,16 +53,20 @@ void insertRelasi(ListDsn LD, ListMhs LM,string NIDN,string NIM){
     adrDsn D = cariDosen(LD,NIDN);
     adrMhs M = cariMahasiswa(LM,NIM);
     if(D != NULL && M != NULL){
-        adrR R = new elmR;
-        PMhs(R) = M;
-        if (first(relasi(D)) == NULL) {
-            first(relasi(D)) = R;
+        if(info(M).jumlahPembimbing<2){
+            adrR R = new elmR;
+            PMhs(R) = M;
+            if (first(relasi(D)) == NULL) {
+                first(relasi(D)) = R;
+            } else {
+                nextR(R) = first(relasi(D));
+                first(relasi(D)) = R;
+            }
+            info(D).jumlahMhsBimbingan++;
+            info(M).jumlahPembimbing++;
         } else {
-            nextR(R) = first(relasi(D));
-            first(relasi(D)) = R;
+            cout << "Jumlah Dosen Pembimbing Max" <<endl;
         }
-        info(D).jumlahMhsBimbingan++;
-        info(M).jumlahPembimbing++;
     } else {
         cout << "Tidak Tersedia Mahasiswa dan Dosen"<<endl;
     }

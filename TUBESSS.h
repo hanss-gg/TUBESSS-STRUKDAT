@@ -62,4 +62,13 @@ struct ListMhs{
     adrMhs first;
 };
 
+void insertDosen(ListDsn &LD,adrDsn P);
+void insertMhs(ListMhs &LM,adrMhs P);
+void insertRelasi(adrDsn D,adrMhs M);
+void deleteDosen(ListDsn &LD,string NIDN, adrDsn P);
+void deleteMhs(ListMhs &LM,string NIM, adrMhs P);
+void deleteRelasi(string NIDN,string NIM);
+adrDsn cariDosen(ListDsn LD, string NIDN);
+adrMhs cariMahasiswa(ListMhs LM, string NIM);
+
 #endif // TUBESSS_H_INCLUDED

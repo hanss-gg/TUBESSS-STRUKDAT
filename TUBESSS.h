@@ -1,6 +1,8 @@
 #ifndef TUBESSS_H_INCLUDED
 #define TUBESSS_H_INCLUDED
 
+#include <iostream>
+
 #define first(L) L.first
 #define info(P) P->info
 #define nextDsn(P) P->nextDsn
@@ -62,9 +64,13 @@ struct ListMhs{
     adrMhs first;
 };
 
-void insertDosen(ListDsn &LD,adrDsn P);
-void insertMhs(ListMhs &LM,adrMhs P);
-void insertRelasi(adrDsn D,adrMhs M);
+void createListDosen(ListDsn &LD);
+void createListMahasiswa(ListMhs &LM);
+adrDsn createElmDosen(infotypeDsn X);
+adrMhs createElmMahasiswa(infotypeMhs X);
+void insertDosen(ListDsn &LD,adrDsn D);
+void insertMhs(ListMhs &LM,adrMhs M);
+void insertRelasi(ListDsn LD, ListMhs LM,string NIDN,string NIM);
 void deleteDosen(ListDsn &LD,string NIDN, adrDsn P);
 void deleteMhs(ListMhs &LM,string NIM, adrMhs P);
 void deleteRelasi(string NIDN,string NIM);

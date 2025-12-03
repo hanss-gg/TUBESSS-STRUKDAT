@@ -71,30 +71,28 @@ void insertRelasi(ListDsn LD, ListMhs LM,string NIDN,string NIM){
         cout << "Tidak Tersedia Mahasiswa dan Dosen"<<endl;
     }
 }
-void deleteDosen(ListDsn &LD,string NIDN, adrDsn P){
-    adrDsn prec = NULL;
-    P = first(LD);
+void deleteDosen(ListDsn &LD,string NIDN, adrDsn X){
+    adrDsn D = cariDosen(LD,NIDN);
 
-    while(P != NULL && info(P).NIDN != NIDN){
-        prec = P;
-        P = nextDsn(P);
-    }
-    if(P == NULL){
+    if(D == NULL){
         cout << "Dosen tidak ditemukan" << endl;
     } else {
-        adrR R = first(relasi(P));
+        adrR R = first(relasi(D));
         while(R != NULL){
             info(PMhs(R)).jumlahPembimbing--;
-            adrR temp = R;
+            adrR X = R;
             R = nextR(R);
-            delete temp;
         }
-        if(P == first(LD)){
-            first(LD) = nextDsn(P);
+        if(D == first(LD)){
+            first(LD) = nextDsn(D);
         } else {
-            nextDsn(prec) = nextDsn(P);
+            adrDsn prec = first(LD);
+            while(nextDsn(prec)!=D){
+                prec = nextDsn(prec);
+            }
+            nextDsn(prec) = nextDsn(D);
         }
-        delete P;
+        X = D;
         cout << "Dosen berhasil dihapus" << endl;
     }
 }
@@ -118,7 +116,7 @@ void deleteMhs(ListMhs &LM,string NIM, adrMhs P){
         cout << "Mahasiswa behasil dihapus dari list mahasiswa, pastikan relasi juga dihapus dari semua dosen" << endl;
     }
 }
-void deleteRelasi(string NIDN,string NIM){
+void deleteRelasi(ListDsn LD,string NIDN,string NIM){
     adrDsn D = cariDosen(LD, NIDN);
     if(D == NULL){
         cout << "Dosen tidak ditemukan" << endl;
@@ -126,7 +124,7 @@ void deleteRelasi(string NIDN,string NIM){
         adrR R = first(relasi(D));
         adrR prec = NULL;
         while(R != NULL && info(PMhs(R)).NIM != NIM){
-            precc = R;
+            prec = R;
             R = nextR(R);
         }
         if(R == NULL){

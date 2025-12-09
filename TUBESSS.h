@@ -76,5 +76,11 @@ void deleteMhs(ListMhs &LM,string NIM, adrMhs P);
 void deleteRelasi(string NIDN,string NIM);
 adrDsn cariDosen(ListDsn LD, string NIDN);
 adrMhs cariMahasiswa(ListMhs LM, string NIM);
+void findRelasi(ListDsn LD, string NIDN, string NIM);
+void showAllDosen(ListDsn LD);
+void showAllMahasiswa(ListMhs LM):
+void showMahasiswaDariDosen(ListDsn LD, string NIDN);
+void showAllDosenDenganMahasiswa(ListDsn LD);
 
 #endif // TUBESSS_H_INCLUDED
+

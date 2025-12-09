@@ -76,11 +76,13 @@ void deleteMhs(ListMhs &LM,string NIM, adrMhs P);
 void deleteRelasi(string NIDN,string NIM);
 adrDsn cariDosen(ListDsn LD, string NIDN);
 adrMhs cariMahasiswa(ListMhs LM, string NIM);
-void findRelasi(ListDsn LD, string NIDN, string NIM);
+adrR findRelasi(adrDsn D, adrMhs M);
 void showAllDosen(ListDsn LD);
-void showAllMahasiswa(ListMhs LM):
-void showMahasiswaDariDosen(ListDsn LD, string NIDN);
+void showAllMahasiswa(ListMhs LM);
+void showMahasiswaBimbinganDosen(ListDsn LD, string NIDN);
 void showAllDosenDenganMahasiswa(ListDsn LD);
+void showAllMahasiswaDenganPembimbing(ListMhs LM, ListDsn LD);
+void showDosenPembimbingMahasiswa(ListDsn LD,ListMhs LM, string NIM);
+void countRelasiPerDosen(ListDsn LD);
 
 #endif // TUBESSS_H_INCLUDED
-

@@ -173,3 +173,94 @@ adrMhs cariMahasiswa(ListMhs LM, string NIM){
         return NULL;
     }
 }
+void findRelasi(ListDsn LD, string NIDN, string NIM){
+    adrDsn D = cariDosen(LD, NIDN);
+    if(D == NULL){
+        cout << "Dosen tidak ditemukan" << endl;
+    } else {
+        adrR R = first(relasi(D));
+        bool found = false;
+        while(R != NULL){
+            if(info(PMhs(R)).NIM == NIM){
+                found = true;
+            }
+            R = nextR(R);
+        }
+        if(found){
+            cout << "Relasi ditemukan: " << NIDN << " membimbing " << NIM <<endl;
+        } else {
+            cout << "Relasi tidak ditemukan" << endl;
+        }
+    }
+}
+void showAllDosen(ListDsn LD){
+    adrDsn P = first(LD);
+    if(P == NULL){
+        cout << "List dosen kosong" << endl;
+    } else {
+        while(P != NULL) {
+            cout << "NIDN    : " << info(P).NIDN << endl;
+            cout << "nama    : " << info(P).nama << endl;
+            cout << "jurusan : " << info(P).jurusan << endl;
+            cout << "jumlahMhsBimbingan: " << info(P).jumlahMhsBimbingan << endl;
+            P = nextDsn(P);
+        }
+    }
+}
+void showAllMahasiswa(ListMhs LM){
+    adrMhs P = first(LM);
+    if(P == NULL){
+        cout << "List mahasiswa kosong" << endl;
+    } else {
+        while(P != NULL){
+            cout << "NIM               : " << info(P).NIM << endl;
+            cout << "Nama              : " << info(P).nama << endl;
+            cout << "Jurusan           : " << info(P).jurusan << endl;
+            cout << "JudulTA           : " << info(P).judulTA << endl;
+            cout << "Semester          : " << info(P).semester << endl;
+            cout << "Jumlah Pembimbing : " << info(P).jumlahPembimbing << endl;
+            P = nextMhs(P);
+        }
+    }
+}
+void showMahasiswaDariDosen(ListDsn LD, string NIDSN){
+    adrDsn D = cariDosen(LD, NIDN);
+    if(D == NULL){
+        cout << "Dosen tidak ditemukan" << endl;
+    } else {
+        adrR R = first(relasi(D));
+        if(R == NULL){
+            cout << "Dosen ini belum memiliki mahasiswa dibimbing" << endl;
+        } else {
+            cout << "Mahasiswa yang dibimbing " << info(D).nama << ":" << endl;
+            while(R != NULL){
+                cout << "- " << info (PMhs (R)).NIM << " | " << info(Pmhs(R)).nama << endl;
+                R = nextR(R);
+            }
+        }
+    }
+}
+void showAllDosenDenganMahasiswa(ListDsn LD){
+    adrDsn D = first(LD);
+    if(D == NULL){
+        cout << "List dosen belum terisi" << endl;
+    } else {
+        while(D != NULL){
+            cout << "NIDN                : " << info(P).NIDN << endl;
+            cout << "Nama                : " << info(P).nama << endl;
+            cout << "Jurusan             : " << info(P).jurusan << endl;
+            cout << "Jumlah Mahasiswa    : " << info(P).jumlahMhsBimbingan << endl;
+            adrR R = first(relasi(D));
+            if(R == NULL){
+                cout << " (Belum membimbing mahasiswa)" << endl;
+            } else {
+                cout << " Mahasiswa bimbingan: " << endl;
+                while(R != NULL){
+                    cout << " - " << info(PMhs(R)).NIM << " | " << info(PMhs(R)).nama << endl;
+                    R = nextR(R);
+                }
+            }
+            D = nextDsn(D);
+        }
+    }
+}

@@ -75,9 +75,9 @@ void insertMhs(ListMhs &LM,adrMhs M);
 void insertMhsFirst(ListMhs &LM, adrMhs M);
 void insertMhsAfter(ListMhs &LM, string NIM, adrMhs M);
 void insertRelasi(ListDsn LD, ListMhs LM,string NIDN,string NIM);
-void deleteDosen(ListDsn &LD,string NIDN, adrDsn P);
-void deleteMhs(ListMhs &LM,string NIM, adrMhs P);
-void deleteRelasi(string NIDN,string NIM);
+void deleteDosen(ListDsn &LD,string NIDN);
+void deleteMhs(ListDsn LD,ListMhs &LM,string NIM);
+void deleteRelasi(ListDsn &LD,string NIDN,string NIM);
 adrDsn cariDosen(ListDsn LD, string NIDN);
 adrMhs cariMahasiswa(ListMhs LM, string NIM);
 adrR findRelasi(adrDsn D, adrMhs M);
@@ -90,11 +90,16 @@ void showDosenPembimbingMahasiswa(ListDsn LD,ListMhs LM, string NIM);
 void countRelasiPerDosen(ListDsn LD);
 void countRelasiMahasiswa(ListDsn LD, ListMhs LM, string NIM);
 void countMahasiswaTanpaPembimbing(ListMhs LM);
-void editRelasi(ListDsn LD, ListMhs LM, string NIDN, string NIM_lama, string NIM_baru);
+void editRelasiPindahDosen(ListDsn &LD, ListMhs &LM,string NIDN_lama,string NIDN_baru,string NIM);
+void editRelasiPindahMahasiswa(ListDsn &LD, ListMhs &LM,string NIDN,string NIM_lama,string NIM_baru);
 void showDosenTanpaMahasiswa(ListDsn LD);
 void showMahasiswaTanpaPembimbing(ListMhs LM);
 void editDosen(ListDsn LD, string NIDN);
 void editMahasiswa(ListMhs LM, string NIM);
+void TampilanMenuAwal();
+void TampilanMenuDosen();
+void TampilanMenuMahasiswa();
+void TampilanMenuRelasi();
+void TampilanMenuTampilkan();
 
 #endif // TUBESSS_H_INCLUDED
-

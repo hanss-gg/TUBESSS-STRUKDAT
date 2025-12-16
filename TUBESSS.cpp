@@ -318,3 +318,39 @@ void countRelasiPerDosen(ListDsn LD) {
         }
     }
 }
+
+void countRelasiMahasiswa(ListDsn LD, ListMhs LM, string NIM){
+    adrMhs M = cariMahasiswa(LM, NIM);
+
+    if(M == NULL){
+        cout << "Mahasiswa tidak ditemukan" << endl;
+    } else {
+        int hitung = 0;
+        adrDsn D = first(LD);
+        while (D != NULL){
+            if(findRelasi(D, M) != NULL){
+                hitung++;
+            }
+            D = nextDsn(D);
+        }
+        cout << "Mahasiswa " << info(M).nama
+             << " memiliki " << hitung
+             << " dosen pembimbing. " << endl;
+    }
+}
+
+void countMahasiswaTanpaPembimbing(ListMhs LM){
+    adrMhs M = first(LM);
+    int hitung = 0;
+    if(M == NULL){
+        cout << "List mahasiswa kosong" << endl;
+    } else {
+        while(M != NULL){
+            if(info(M).jumlahPembimbing == 0){
+                hitung++;
+            }
+            M = nextMhs(M);
+        }
+        cout << "Jumlah mahasiswa yang belum memiliki dosen pembimbing: " << hitung << endl;
+    }
+}

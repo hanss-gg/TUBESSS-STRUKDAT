@@ -11,11 +11,13 @@ int main() {
     createListDosen(LD);
     createListMahasiswa(LM);
 
+
     int menu;
     while (!keluar) {
         TampilanMenuAwal();
         cout << "Pilih menu: ";
         cin >> menu;
+        system("cls");
 
         if (menu == 1) {
             int p;
@@ -36,6 +38,7 @@ int main() {
                     getline(cin, d.jurusan);
                     d.jumlahMhsBimbingan = 0;
                     insertDosen(LD, createElmDosen(d));
+
                 } else if (p == 2) {
                     string nidn;
                     cout << "Masukkan NIDN: ";
@@ -49,6 +52,7 @@ int main() {
                 } else if (p == 4) {
                     showAllDosen(LD);
                 } else if (p == 0){
+                    system("cls");
                     kembali = true;
                 } else {
                     cout << "Pilihan Tidak Valid" <<endl;
@@ -92,6 +96,7 @@ int main() {
                 }else if (p == 4) {
                     showAllMahasiswa(LM);
                 } else if(p==0){
+                    system("cls");
                     kembali = true;
                 }else{
                     cout << "Pilihan Tidak Valid" <<endl;
@@ -137,6 +142,7 @@ int main() {
                     cin >> baru;
                     editRelasiPindahMahasiswa(LD, LM, nidn, lama, baru);
                 } else if(p==0){
+                    system("cls");
                     kembali = true;
                 }else{
                     cout << "Pilihan Tidak Valid" <<endl;
@@ -169,6 +175,7 @@ int main() {
                 } else if (p==6){
                     showMahasiswaTanpaPembimbing(LM);
                 } else if (p==0){
+                    system("cls");
                     kembali =true;
                 } else {
                     cout << "Pilihan Tidak Valid" <<endl;

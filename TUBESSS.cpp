@@ -27,65 +27,95 @@ adrMhs createElmMahasiswa(infotypeMhs X){
 }
 
 void insertDosen(ListDsn &LD,adrDsn D){
-    if(first(LD)==NULL){
-        first(LD) = D;
+    if(cariDosen(LD,info(D).NIDN) != NULL){
+        cout << "Dosen dengan NIDN sama telah terdaftar" <<endl;
     } else {
-        adrDsn P = first(LD);
-        while(nextDsn(P)!=NULL){
-            P = nextDsn(P);
+        if(first(LD)==NULL){
+            first(LD) = D;
+        } else {
+            adrDsn P = first(LD);
+            while(nextDsn(P)!=NULL){
+                P = nextDsn(P);
+            }
+            nextDsn(P) = D;
         }
-        nextDsn(P) = D;
+        cout << "Dosen Berhasil Ditambahkan" <<endl;
     }
 }
 
 void insertDosenFirst(ListDsn &LD, adrDsn D){
-    if(first(LD) == NULL){
-        first(LD) = D;
+    if(cariDosen(LD,info(D).NIDN) != NULL){
+        cout << "Dosen dengan NIDN sama telah terdaftar" <<endl;
     } else {
-        nextDsn(D) = first(LD);
-        first(LD) = D;
+        if(first(LD) == NULL){
+            first(LD) = D;
+        } else {
+            nextDsn(D) = first(LD);
+            first(LD) = D;
+        }
+        cout << "Dosen Berhasil Ditambahkan" <<endl;
     }
 }
 
 void insertDosenAfter(ListDsn &LD, string NIDN, adrDsn D){
     adrDsn P = cariDosen(LD, NIDN);
-    if(P == NULL){
-        cout << "Dosen yang dicari tidak ditemukan" << endl;
+    if(cariDosen(LD,info(D).NIDN) != NULL){
+        cout << "Dosen dengan NIDN sama telah terdaftar" <<endl;
     } else {
-        nextDsn(D) = nextDsn(P);
-        nextDsn(P) = D;
+        if(P == NULL){
+            cout << "Dosen yang dicari tidak ditemukan" << endl;
+        } else {
+            nextDsn(D) = nextDsn(P);
+            nextDsn(P) = D;
+        }
+        cout << "Dosen Berhasil Ditambahkan" <<endl;
     }
 }
 
 void insertMhs(ListMhs &LM,adrMhs M){
-    if(first(LM)==NULL){
-        first(LM) = M;
+    if(cariMahasiswa(LM,info(M).NIM) != NULL){
+        cout << "Mahasiswa dengan NIM sama telah terdaftar" <<endl;
     } else {
-        adrMhs P = first(LM);
-        while(nextMhs(P)!=NULL){
-            P = nextMhs(P);
+        if(first(LM)==NULL){
+            first(LM) = M;
+        } else {
+            adrMhs P = first(LM);
+            while(nextMhs(P)!=NULL){
+                P = nextMhs(P);
+            }
+            nextMhs(P) = M;
         }
-        nextMhs(P) = M;
+        cout << "Mahasiswa Berhasil Ditambahkan" <<endl;
     }
 }
 
 void insertMhsFirst(ListMhs &LM, adrMhs M){
-    if(first(LM) == NULL){
-        first(LM) = M;
+    if(cariMahasiswa(LM,info(M).NIM) != NULL){
+        cout << "Mahasiswa dengan NIM sama telah terdaftar" <<endl;
     } else {
-        nextMhs(M) = first(LM);
-        first(LM) = M;
+        if(first(LM) == NULL){
+            first(LM) = M;
+        } else {
+            nextMhs(M) = first(LM);
+            first(LM) = M;
+        }
+        cout << "Mahasiswa Berhasil Ditambahkan" <<endl;
     }
 }
 
 void insertMhsAfter(ListMhs &LM, string NIM, adrMhs M){
     adrMhs P = cariMahasiswa(LM, NIM);
-    if(P == NULL){
-        cout << "Mahasiswa acuan tidak ditemukan" << endl;
+    if(cariMahasiswa(LM,info(M).NIM) != NULL){
+        cout << "Mahasiswa dengan NIM sama telah terdaftar" <<endl;
     } else {
-        nextMhs(M) = nextMhs(P);
-        nextMhs(P) = M;
+        if(P == NULL){
+            cout << "Mahasiswa acuan tidak ditemukan" << endl;
+        } else {
+            nextMhs(M) = nextMhs(P);
+            nextMhs(P) = M;
+        }
     }
+    cout << "Mahasiswa Berhasil Ditambahkan" <<endl;
 }
 
 
@@ -93,7 +123,13 @@ void insertRelasi(ListDsn LD, ListMhs LM,string NIDN,string NIM){
     adrDsn D = cariDosen(LD,NIDN);
     adrMhs M = cariMahasiswa(LM,NIM);
     if(D != NULL && M != NULL){
-        if(info(M).jumlahPembimbing<2){
+        if(info(M).semester<7){
+            cout << "Mahasiswa Minimal Semester 7" <<endl;
+        }else if(findRelasi(D,M) != NULL){
+            cout << "Mahasiswa dan Dosen sudah Berelasi" <<endl;
+        } else if(info(M).jumlahPembimbing>=2){
+            cout << "Jumlah Dosen Pembimbing Max" <<endl;
+        } else {
             adrR R = new elmR;
             nextR(R) = NULL;
             PMhs(R) = M;
@@ -105,8 +141,7 @@ void insertRelasi(ListDsn LD, ListMhs LM,string NIDN,string NIM){
             }
             info(D).jumlahMhsBimbingan++;
             info(M).jumlahPembimbing++;
-        } else {
-            cout << "Jumlah Dosen Pembimbing Max" <<endl;
+            cout << "Relasi Berhasil Dilakukan" <<endl;
         }
     } else {
         cout << "Tidak Tersedia Mahasiswa dan Dosen"<<endl;
@@ -190,7 +225,6 @@ void deleteRelasi(ListDsn &LD,string NIDN,string NIM){
 
 adrDsn cariDosen(ListDsn LD, string NIDN){
     if(first(LD) == NULL){
-        cout <<"List Kosong"<<endl;
         return NULL;
     } else {
         adrDsn P = first(LD);
@@ -206,7 +240,6 @@ adrDsn cariDosen(ListDsn LD, string NIDN){
 }
 adrMhs cariMahasiswa(ListMhs LM, string NIM){
     if(first(LM) == NULL){
-        cout <<"List Kosong"<<endl;
         return NULL;
     } else {
         adrMhs P = first(LM);
@@ -245,13 +278,14 @@ void showAllDosen(ListDsn LD){
         cout << "List dosen kosong" << endl;
     } else {
         while(P != NULL) {
-            cout << "NIDN    : " << info(P).NIDN << endl;
-            cout << "nama    : " << info(P).nama << endl;
-            cout << "jurusan : " << info(P).jurusan << endl;
-            cout << "jumlahMhsBimbingan: " << info(P).jumlahMhsBimbingan << endl;
+            cout << "NIDN            : " << info(P).NIDN << endl;
+            cout << "Nama            : " << info(P).nama << endl;
+            cout << "Jurusan         : " << info(P).jurusan << endl;
+            cout << "Total Bimbingan : " << info(P).jumlahMhsBimbingan << endl;
             P = nextDsn(P);
         }
     }
+    cout << endl;
 }
 
 //Tampilan Semua Mahasiswa
@@ -492,7 +526,7 @@ void showMahasiswaTanpaPembimbing(ListMhs LM){
     }
 }
 
-void editDosen(ListDsn LD, string NIDN){
+void editDosen(ListDsn &LD, string NIDN){
     adrDsn D = cariDosen(LD, NIDN);
 
     if(D == NULL){
@@ -509,7 +543,7 @@ void editDosen(ListDsn LD, string NIDN){
     }
 }
 
-void editMahasiswa(ListMhs LM, string NIM){
+void editMahasiswa(ListMhs &LM, string NIM){
     adrMhs M = cariMahasiswa(LM, NIM);
 
     if(M == NULL){

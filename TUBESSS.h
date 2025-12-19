@@ -94,8 +94,8 @@ void editRelasiPindahDosen(ListDsn &LD, ListMhs &LM,string NIDN_lama,string NIDN
 void editRelasiPindahMahasiswa(ListDsn &LD, ListMhs &LM,string NIDN,string NIM_lama,string NIM_baru);
 void showDosenTanpaMahasiswa(ListDsn LD);
 void showMahasiswaTanpaPembimbing(ListMhs LM);
-void editDosen(ListDsn LD, string NIDN);
-void editMahasiswa(ListMhs LM, string NIM);
+void editDosen(ListDsn &LD, string NIDN);
+void editMahasiswa(ListMhs &LM, string NIM);
 void TampilanMenuAwal();
 void TampilanMenuDosen();
 void TampilanMenuMahasiswa();

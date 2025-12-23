@@ -12,6 +12,7 @@ int main() {
     createListMahasiswa(LM);
 
 
+
     int menu;
     while (!keluar) {
         TampilanMenuAwal();
@@ -34,7 +35,6 @@ int main() {
                     cin.ignore();
                     getline(cin, d.nama);
                     cout << "Jurusan: ";
-                    cin.ignore();
                     getline(cin, d.jurusan);
                     d.jumlahMhsBimbingan = 0;
                     insertDosen(LD, createElmDosen(d));
@@ -74,10 +74,8 @@ int main() {
                     cin.ignore();
                     getline(cin, m.nama);
                     cout << "Jurusan: ";
-                    cin.ignore();
                     getline(cin, m.jurusan);
                     cout << "Judul TA: ";
-                    cin.ignore();
                     getline(cin, m.judulTA);
                     cout << "Semester: ";
                     cin >> m.semester;

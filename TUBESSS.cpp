@@ -67,8 +67,8 @@ void insertDosenAfter(ListDsn &LD, string NIDN, adrDsn D){
         } else {
             nextDsn(D) = nextDsn(P);
             nextDsn(P) = D;
+            cout << "Dosen Berhasil Ditambahkan" <<endl;
         }
-        cout << "Dosen Berhasil Ditambahkan" <<endl;
     }
 }
 
@@ -114,8 +114,8 @@ void insertMhsAfter(ListMhs &LM, string NIM, adrMhs M){
             nextMhs(M) = nextMhs(P);
             nextMhs(P) = M;
         }
+        cout << "Mahasiswa Berhasil Ditambahkan" <<endl;
     }
-    cout << "Mahasiswa Berhasil Ditambahkan" <<endl;
 }
 
 
@@ -169,6 +169,7 @@ void deleteDosen(ListDsn &LD,string NIDN){
             }
             nextDsn(prec) = nextDsn(D);
         }
+        delete D;
         cout << "Dosen berhasil dihapus" << endl;
     }
 }
@@ -536,7 +537,6 @@ void editDosen(ListDsn &LD, string NIDN){
         cin.ignore();
         getline(cin, info(D).nama);
         cout << "Masukkan Jurusan Baru: ";
-        cin.ignore();
         getline(cin, info(D).jurusan);
 
         cout << "Data dosen berhasil diperbarui" << endl;
@@ -553,10 +553,8 @@ void editMahasiswa(ListMhs &LM, string NIM){
         cin.ignore();
         getline(cin, info(M).nama);
         cout << "Masukkan Jurusan Baru : ";
-        cin.ignore();
         getline(cin, info(M).jurusan);
         cout << "Masukkan Judul TA Baru: ";
-        cin.ignore();
         getline(cin, info(M).judulTA);
         cout << "Masukkan Semester     : ";
         cin >> info(M).semester;
